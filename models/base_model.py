@@ -15,19 +15,28 @@ class BaseModel:
         '''
             Initialize public instance attributes.
         '''
-        if (len(kwargs) == 0):
+        if id not in kwargs:
             self.id = str(uuid.uuid4())
+            needs_save = True
+        else:
+            needs_save = False
+        if 'created_at' not in kwargs:
             self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            models.storage.new(self)
         else:
             kwargs["created_at"] = datetime.strptime(kwargs["created_at"],
                                                      "%Y-%m-%dT%H:%M:%S.%f")
+        if 'updated_at' not in kwargs:
+            self.updated_at = datetime.now()
+        else:
             kwargs["updated_at"] = datetime.strptime(kwargs["updated_at"],
                                                      "%Y-%m-%dT%H:%M:%S.%f")
-            for key, val in kwargs.items():
-                if "__class__" not in key:
-                    setattr(self, key, val)
+
+        for key, val in kwargs.items():
+            if "__class__" not in key:
+                setattr(self, key, val)
+        if needs_save == True:
+            models.storage.new(self)
+
 
     def __str__(self):
         '''
@@ -58,5 +67,3 @@ class BaseModel:
         cp_dct['__class__'] = self.__class__.__name__
         cp_dct['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
         cp_dct['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
-
-        return (cp_dct)
