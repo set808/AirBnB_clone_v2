@@ -122,7 +122,7 @@ class HBNBCommand(cmd.Cmd):
         try:
             if len(args) != 0:
                 eval(args)
-                objects = storage.all(eval(args))
+                objects = storage.all(args)
             else:
                 objects = storage.all(None)
         except NameError:

@@ -11,6 +11,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+
 class FileStorage:
     '''
         Serializes instances to JSON file and deserializes to JSON file.
@@ -24,7 +25,8 @@ class FileStorage:
         '''
         if cls is None:
             return self.__objects
-        return {key: value for (key, value) in self.__objects.items() if key.find(cls.__name__) != -1}
+        return {key: value for (key, value) in self.__objects.items() if
+                key.find(cls.__name__) != -1}
 
     def new(self, obj):
         '''

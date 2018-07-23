@@ -7,6 +7,12 @@ from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models.base_model import Base
+from models.state import State
+from models.user import User
+from models.place import Place
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 
 class DBStorage():
@@ -35,10 +41,13 @@ class DBStorage():
             returns all of a class or a specific class
         '''
         if cls is None:
-            objects = self.__session.query()
+            objects = [obj for my_class in
+                       [State, User, City, Place, Amenity, Review]
+                       for obj in self.__session.query(my_class).all()]
         else:
-            objects =  self.__session.query(cls)
-        return {'{}.{}'.format(obj.__class__.__name__, obj.id): obj for obj in objects}
+            objects = self.__session.query(eval(cls)).all()
+        return {'{}.{}'.format(obj.__class__.__name__, obj.id): obj for
+                obj in objects}
 
     def new(self, obj):
         '''
