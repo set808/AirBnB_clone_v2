@@ -4,7 +4,12 @@
 '''
 import json
 import models
-
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 class FileStorage:
     '''
@@ -13,11 +18,13 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-    def all(self):
+    def all(self, cls=None):
         '''
             Return the dictionary
         '''
-        return self.__objects
+        if cls is None:
+            return self.__objects
+        return {key: value for (key, value) in self.__objects.items() if key.find(cls.__name__) != -1}
 
     def new(self, obj):
         '''
@@ -53,3 +60,13 @@ class FileStorage:
                 FileStorage.__objects[key] = class_name(**val)
         except FileNotFoundError:
             pass
+
+    def delete(self, obj=None):
+        '''
+            Deletes an object
+        '''
+        if obj is None:
+            return
+        key = str(obj.__class__.__name__) + "." + str(obj.id)
+        self.__objects.pop(key)
+        self.save()
