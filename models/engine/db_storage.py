@@ -50,7 +50,7 @@ class DBStorage():
         '''
             saves all changes to the database
         '''
-    self.__session.commit()
+        self.__session.commit()
 
     def delete(self, obj=None):
         '''
