@@ -9,6 +9,7 @@ from models.base_model import BaseModel
 from io import StringIO
 import sys
 import datetime
+from os import getenv
 
 
 class TestBase(unittest.TestCase):
@@ -55,6 +56,8 @@ class TestBase(unittest.TestCase):
         self.assertEqual(self.my_model.updated_at.year,
                          self.my_model.created_at.year)
 
+    @unittest.skipIf(getenv('HBNB_TYPE_STORAGE') == 'db',
+                     'In database engine, BaseModel is never saved')
     def test_save(self):
         '''
             Checks that after updating the instance; the dates differ in the

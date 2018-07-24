@@ -7,6 +7,7 @@
 import unittest
 from models.base_model import BaseModel
 from models.amenity import Amenity
+from os import getenv
 
 
 class TestAmenity(unittest.TestCase):
@@ -28,6 +29,8 @@ class TestAmenity(unittest.TestCase):
         new_amenity = Amenity()
         self.assertTrue("name" in new_amenity.__dir__())
 
+    @unittest.skipIf(getenv('HBNB_TYPE_STORAGE') == 'db',
+                     'attributes are NoneType in db')
     def test_Amenity_attribute_type(self):
         '''
             Test that Amenity class had name attribute's type.
@@ -35,3 +38,13 @@ class TestAmenity(unittest.TestCase):
         new_amenity = Amenity()
         name_value = getattr(new_amenity, "name")
         self.assertIsInstance(name_value, str)
+
+    @unittest.skipIf(getenv('HBNB_TYPE_STORAGE') != 'db',
+                     'testing if attribute stores to db')
+    def test_Amenity_attribute_store(self):
+        '''
+            Test if name stores correctly
+        '''
+        new_amenity = Amenity()
+        with self.assertRaises(Exception):
+            new_amenity.save()
