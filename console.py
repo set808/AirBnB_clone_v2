@@ -48,7 +48,8 @@ class HBNBCommand(cmd.Cmd):
             args = shlex.split(args)
             my_class = args[0]
             args = args[1:]
-            args = {a.partition('=')[0]: a.partition('=')[2] for a in args}
+            args = {a.partition('=')[0]: a.partition('=')[2].replace('_', ' ')
+                    for a in args}
             obj = eval(my_class)(**args)
             obj.save()
             print(obj.id)
