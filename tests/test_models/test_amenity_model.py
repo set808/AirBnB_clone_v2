@@ -22,6 +22,15 @@ class TestAmenity(unittest.TestCase):
         new_amenity = Amenity()
         self.assertIsInstance(new_amenity, BaseModel)
 
+    @unittest.skipIf(getenv('HBNB_TYPE_STORAGE') != 'db',
+                     'Amenity only inherits from Base when using db')
+    def test_Amenity_inheritence_db(self):
+        '''
+            tests that the Amenity class Inherits from Base
+        '''
+        new_amenity = Amenity()
+        self.assertIsInstance(new_amenity, Base)
+
     def test_Amenity_attributes(self):
         '''
             Test that Amenity class had name attribute.

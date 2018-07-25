@@ -31,6 +31,14 @@ class TestPlace(unittest.TestCase):
 
         self.assertIsInstance(self.new_place, BaseModel)
 
+    @unittest.skipIf(getenv('HBNB_TYPE_STORAGE') != 'db',
+                     'Place only inherits from Base when using db')
+    def test_Place_inheritance_db(self):
+        '''
+            tests that the City class Inherits from Base
+        '''
+        self.assertIsInstance(self.new_place, Base)
+
     def test_Place_attributes(self):
         '''
             Checks that the attribute exist.

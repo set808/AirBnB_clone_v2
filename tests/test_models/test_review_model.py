@@ -22,6 +22,15 @@ class TestReview(unittest.TestCase):
         new_review = Review()
         self.assertIsInstance(new_review, BaseModel)
 
+    @unittest.skipIf(getenv('HBNB_TYPE_STORAGE') != 'db',
+                     'Review only inherits from Base when using db')
+     def test_Review_inheritance_db(self):
+         '''
+             tests that the Review class Inherits from Base
+         '''
+         new_review = Review()
+         self.assertIsInstance(new_review, Base)
+
     def test_Review_attributes(self):
         '''
             Test that Review class has place_id, user_id and text
