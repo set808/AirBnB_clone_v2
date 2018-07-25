@@ -5,7 +5,7 @@
 '''
 
 import unittest
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from models.place import Place
 from os import getenv
 
