@@ -20,5 +20,5 @@ def do_pack():
         local("tar -cvzf versions/{} web_static".format(name))
         size = os.stat("versions/{}".format(name)).st_size
         print("web_static packed: versions/{} -> {}".format(name, size))
-    except:
+    except BaseException:
         return None

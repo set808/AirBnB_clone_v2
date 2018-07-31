@@ -6,6 +6,7 @@ from datetime import datetime
 
 env.hosts = ['35.229.119.9', '35.231.108.86']
 
+
 def do_pack():
     try:
         filepath = "versions/web_static_" + datetime.now().\
@@ -15,8 +16,9 @@ def do_pack():
         web_static")
         print("web_static packed: {} -> {}".
               format(filepath, os.path.getsize(filepath)))
-    except:
+    except BaseException:
         return None
+
 
 def do_deploy(archive_path):
     a_list = archive_path.split(".tgz")

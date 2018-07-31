@@ -54,7 +54,7 @@ class HBNBCommand(cmd.Cmd):
             obj.save()
             print(obj.id)
 
-        except:
+        except BaseException:
             print("** class doesn't exist **")
 
     def do_show(self, args):
@@ -191,7 +191,7 @@ class HBNBCommand(cmd.Cmd):
             return
         for key, val in objects.items():
             if len(args) != 0:
-                if type(val) is eval(args):
+                if isinstance(val, eval(args)):
                     obj_list.append(val)
             else:
                 obj_list.append(val)
@@ -211,7 +211,7 @@ class HBNBCommand(cmd.Cmd):
             cmd_arg = args[0] + " " + args[2]
             func = functions[args[1]]
             func(cmd_arg)
-        except:
+        except BaseException:
             print("*** Unknown syntax:", args[0])
 
 
