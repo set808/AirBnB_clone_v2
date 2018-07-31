@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Sets up server for the deployment of web_static
 FILE=/etc/nginx/sites-available/default
-STRING="location /hbnb_static {\n alias /data/web_static/current; \n}\n"
+STRING="location /hbnb_static/ {\n alias /data/web_static/current/; \n}\n"
 
 sudo apt-get -y update
 sudo apt-get -y install nginx
