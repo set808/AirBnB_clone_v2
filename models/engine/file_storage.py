@@ -72,3 +72,9 @@ class FileStorage:
         key = str(obj.__class__.__name__) + "." + str(obj.id)
         self.__objects.pop(key)
         self.save()
+
+    def close(self):
+        ''' 
+         closes a session 
+        '''
+        self.reload()
