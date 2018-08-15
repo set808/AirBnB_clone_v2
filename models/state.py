@@ -2,7 +2,7 @@
 '''
     Implementation of the State class
 '''
-
+import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
@@ -24,5 +24,6 @@ class State(BaseModel, Base):
 
         @property
         def cities(self):
-            my_cities = models.storage.all(City)
+            my_cities = models.storage.all(models.classes['City']).values()
+            print(my_cities)
             return [city for city in my_cities if city.state_id == self.id]
